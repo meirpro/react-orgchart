@@ -1,16 +1,69 @@
 ![OrgChart](http://dabeng.github.io/OrgChart/img/heading.svg)
 
-# [jQuery Version](https://github.com/dabeng/OrgChart)
-# [ES6 Version](http://github.com/dabeng/OrgChart.js)
-# [Web Components Version](http://github.com/dabeng/OrgChart-Webcomponents)
-# [Vue.js Version](https://github.com/dabeng/vue-orgchart)
-# [Angular Version](https://github.com/dabeng/ng-orgchart)
+# @meirpro/react-orgchart
+
+[![npm](https://img.shields.io/npm/v/@meirpro/react-orgchart.svg?style=flat-square)](https://www.npmjs.com/package/@meirpro/react-orgchart)
+
+## 🔒 Security Fork - What's Changed
+
+This is a **security-focused fork** of [@dabeng/react-orgchart](https://github.com/dabeng/react-orgchart) that addresses critical vulnerabilities:
+
+### ✅ **Security Fixes**
+- **Removed jspdf dependency** that had vulnerable dompurify chain (CVE-2024-47068)
+- **Eliminated PDF export** to remove security risk entirely
+- **Reduced vulnerabilities** from 40+ to 9 in dependency tree
+
+### ✅ **New Features**
+- **Added JPEG export** with 92% quality setting
+- **Maintained PNG export** functionality
+- **Same API** - drop-in replacement for existing projects
+
+### 📦 **Installation**
+
+**Replace vulnerable dependency:**
+```bash
+# Remove the vulnerable package
+npm uninstall @dabeng/react-orgchart
+
+# Install the secure version
+npm install @meirpro/react-orgchart
+```
+
+**For new projects:**
+```bash
+npm install @meirpro/react-orgchart
+```
+
+### 🚀 **Usage** (JPEG Export)
+```javascript
+// Import the secure version (same API)
+import OrganizationChart from '@meirpro/react-orgchart';
+
+// Export as JPEG (NEW!)
+chartRef.current.exportTo('my-chart', 'jpeg');
+// Export as PNG (existing)
+chartRef.current.exportTo('my-chart', 'png');
+```
+
+### 🔄 **Migration from @dabeng/react-orgchart**
+1. Replace import: `import OrganizationChart from '@meirpro/react-orgchart';`
+2. Update any PDF export calls to use JPEG: `exportTo('filename', 'jpeg')`
+3. Everything else works exactly the same!
+
+---
+
+## Other Versions
+- [jQuery Version](https://github.com/dabeng/OrgChart)
+- [ES6 Version](http://github.com/dabeng/OrgChart.js)
+- [Web Components Version](http://github.com/dabeng/OrgChart-Webcomponents)
+- [Vue.js Version](https://github.com/dabeng/vue-orgchart)
+- [Angular Version](https://github.com/dabeng/ng-orgchart)
 
 ## Features
 - expand/collapse nodes
 - Allows user to change orgchart structure by drag/drop nodes
 - Allows user to edit orgchart
-- Supports exporting chart as a picture or pdf document
+- Supports exporting chart as PNG or JPEG image (PDF removed for security)
 - Supports pan and zoom
 - Allows user to customize the internal structure for every node
 
@@ -121,14 +174,14 @@
     </tr>
     <tr>
       <td>exportTo</td>
-      <td>User can use this method to export orgchart to png org pdf file. Sample code: orgchartRef.current.exportTo(filename, fileextension)</td>
+      <td>User can use this method to export orgchart to PNG or JPEG file. Sample code: orgchartRef.current.exportTo(filename, 'png') or orgchartRef.current.exportTo(filename, 'jpeg')</td>
     </tr>
   </tbody>
 </table>
 
 ## Install
 ```
-npm install @dabeng/react-orgchart
+npm install @meirpro/react-orgchart
 ```
 
 ## [Demo](https://codesandbox.io/s/react-orgchart-demo-o3nf6)

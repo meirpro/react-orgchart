@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import { selectNodeService } from "./service";
 import JSONDigger from "json-digger";
 import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import ChartNode from "./ChartNode";
 import "./ChartContainer.css";
 
@@ -203,23 +202,24 @@ const ChartContainer = forwardRef(
       updateChartScale(newScale);
     };
 
-    const exportPDF = (canvas, exportFilename) => {
-      const canvasWidth = Math.floor(canvas.width);
-      const canvasHeight = Math.floor(canvas.height);
-      const doc =
-        canvasWidth > canvasHeight
-          ? new jsPDF({
-              orientation: "landscape",
-              unit: "px",
-              format: [canvasWidth, canvasHeight]
-            })
-          : new jsPDF({
-              orientation: "portrait",
-              unit: "px",
-              format: [canvasHeight, canvasWidth]
-            });
-      doc.addImage(canvas.toDataURL("image/jpeg", 1.0), "JPEG", 0, 0);
-      doc.save(exportFilename + ".pdf");
+    const exportJPEG = (canvas, exportFilename) => {
+      const isWebkit = "WebkitAppearance" in document.documentElement.style;
+      const isFf = !!window.sidebar;
+      const isEdge =
+        navigator.appName === "Microsoft Internet Explorer" ||
+        (navigator.appName === "Netscape" &&
+          navigator.appVersion.indexOf("Edge") > -1);
+
+      if ((!isWebkit && !isFf) || isEdge) {
+        // For older browsers that support msSaveBlob
+        canvas.toBlob(function(blob) {
+          window.navigator.msSaveBlob(blob, exportFilename + ".jpg");
+        }, "image/jpeg", 0.92);
+      } else {
+        setDataURL(canvas.toDataURL("image/jpeg", 0.92));
+        setDownload(exportFilename + ".jpg");
+        downloadButton.current.click();
+      }
     };
 
     const exportPNG = (canvas, exportFilename) => {
@@ -263,8 +263,8 @@ const ChartContainer = forwardRef(
           }
         }).then(
           canvas => {
-            if (exportFileextension.toLowerCase() === "pdf") {
-              exportPDF(canvas, exportFilename);
+            if (exportFileextension.toLowerCase() === "jpg" || exportFileextension.toLowerCase() === "jpeg") {
+              exportJPEG(canvas, exportFilename);
             } else {
               exportPNG(canvas, exportFilename);
             }

@@ -75,13 +75,13 @@ const ExportChart = () => {
         <label htmlFor="rd-png">png</label>
         <input
           style={{ marginLeft: "1rem" }}
-          id="rd-pdf"
+          id="rd-jpeg"
           type="radio"
-          value="pdf"
-          checked={fileextension === "pdf"}
+          value="jpeg"
+          checked={fileextension === "jpeg"}
           onChange={onExtensionChange}
         />
-        <label htmlFor="rd-pdf">pdf</label>
+        <label htmlFor="rd-jpeg">jpeg</label>
         <button
           onClick={exportTo}
           style={{ marginLeft: "2rem" }}
