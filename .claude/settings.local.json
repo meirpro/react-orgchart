@@ -6,7 +6,10 @@
       "Bash(npm install)",
       "Bash(npm audit:*)",
       "Bash(npm run publish:npm:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(npm publish:*)",
+      "Bash(git restore:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }
